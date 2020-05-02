@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main()
+{
+    FILE *fin;
+    setlocale(0,"");
+    char text [10000];
+    char way [50];
+    int balance_i = 0;
+    int balance_j = 0;
+    int balance_k = 0;
+    int i;
+    int start;
+printf("Вас приветствует программа CheckBrackets.exe\n");
+printf("Если вы хотите прочитать инструкцию введите 1\n");
+printf("Если вы хотите приступить к работе нажмите соответственно 2 или 3\n");
+    scanf("%d",&start);
+    switch (start)
+                {
+  case 1:
+    printf("Добро пожаловать.Данная программа предназначена для проверки текста формата txt на сбалансированные круглые,квадратные,фигурные скобки\n");
+    printf("Для того,чтобы проверить программу на сбалансированные скобки без учета кавычек нажмите 2,затем укажите полный путь расположения вашего\n");
+    printf("файла.Программа проверит ваш текст на балансировку скобок и вышлет результат.Если вы хотите проверить текст на сбалансированные скобки с\n");
+    printf("с учетом кавычек(то есть проверка скобок внутри кавычек осуществляться не будет),то выберите 3.");
+    break;
+
+
+
+  case 2:
+    printf("Введите полный путь файла с расширением:");
+    scanf("%s",&way);
+    fin = fopen(way, "r+");
+    if ( NULL != fgets (text, 5000, fin ) )
+                               {
+
+    printf("%s ",text);
+                               }
+    i = 0;
+    while(text[i]!= '\0') {
+        if (text[i] == '(')
+           balance_i++;
+
+        else if (text[i] == ')')
+            balance_i--;
+
+        else  if (text[i] == '{')
+           balance_j++;
+
+        else if (text[i] == '}')
+            balance_j--;
+
+        else if (text[i] == '[')
+           balance_k++;
+
+        else if (text[i] == ']')
+            balance_k--;
+
+        i++;
+                           }
+
+
+
+     if (balance_i == 0 && balance_j == 0 && balance_k == 0 ) {
+        printf("Скобки сбалансированы");
+                       }
+      else {
+            printf("Cкобки несбалансированы.Количество несбалансированных скобок:");
+            printf("%d",abs(balance_k + balance_i + balance_j));
+           }
+
+      fclose(fin);
+    return 0;
+    break;
+
+
+
+    case 3:
+        printf("Введите полный путь файла с расширением:");
+    scanf("%s",&way);
+    fin = fopen(way, "r+");
+    if ( NULL != fgets (text, 5000, fin ) )
+                               {
+    printf("%s ",text);
+                               }
+    int i;
+    i = 0;
+    int check_quote;
+    for(i = 0;i < 50;i++) {
+
+        if (text[i] =='\"')
+        check_quote++;
+
+        if (check_quote % 2 == 0)
+
+    {
+
+        if (text[i] == '(')
+           balance_i++;
+
+        else if (text[i] == ')')
+            balance_i--;
+
+        else  if (text[i] == '{')
+           balance_j++;
+
+        else if (text[i] == '}')
+            balance_j--;
+
+        else if (text[i] == '[')
+           balance_k++;
+
+        else if (text[i] == ']')
+            balance_k--;
+
+                           }
+
+
+        }
+
+
+
+
+     if (balance_i == 0 && balance_j == 0 && balance_k == 0 ) {
+        printf("Скобки сбалансированы");
+                       }
+      else {
+            printf("Cкобки несбалансированы.Количество несбалансированных скобок:");
+            printf("%d",abs(balance_k + balance_i + balance_j));
+           }
+
+      fclose(fin);
+    return 0;
+    break;
+    default:
+    printf("Неверная команда");
+    return 0;
+    break;
+                }
+}
